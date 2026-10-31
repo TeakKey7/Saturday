@@ -1,0 +1,49 @@
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.priorityHigh {
+  background: var(--color-red-soft);
+}
+
+.priorityMedium {
+  background: var(--color-amber-warm);
+}
+
+.priorityLow {
+  background: var(--color-secondary);
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.good,
+.beginner {
+  background: var(--color-sage-light);
+  color: var(--color-sage-text);
+}
+
+.attention {
+  background: var(--color-amber-light);
+  color: var(--color-amber-text);
+}
+
+.overdue,
+.advanced {
+  background: var(--color-red-light);
+  color: var(--color-red-text);
+}
+
+.intermediate {
+  background: var(--color-lavender-badge);
+  color: var(--color-lavender-text);
+}

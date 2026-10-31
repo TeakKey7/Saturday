@@ -1,0 +1,7 @@
+[
+  { "id": "dashboard", "label": "Dashboard", "icon": "⌂" },
+  { "id": "reminders", "label": "Reminders", "icon": "✓" },
+  { "id": "inventory", "label": "Inventory", "icon": "◻" },
+  { "id": "diagnostics", "label": "Diagnostics", "icon": "⊕" },
+  { "id": "tutorials", "label": "Tutorials", "icon": "▶" }
+]

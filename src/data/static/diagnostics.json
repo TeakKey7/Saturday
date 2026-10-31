@@ -1,0 +1,9 @@
+[
+  { "id": "d1", "title": "AC Not Cooling Properly", "category": "HVAC", "tags": ["AC", "cooling", "refrigerant"], "description": "Short cycling, warm air, or poor airflow — walk through the most common causes and fixes before calling a technician.", "readTime": "6 min", "icon": "❄️" },
+  { "id": "d2", "title": "Tripping Circuit Breakers", "category": "Electrical", "tags": ["breaker", "electrical", "overload"], "description": "Why breakers trip, how to identify overloaded circuits, and when it's a sign of a deeper wiring problem.", "readTime": "5 min", "icon": "⚡" },
+  { "id": "d3", "title": "Water Heater Not Heating", "category": "Plumbing", "tags": ["water heater", "pilot", "thermostat"], "description": "Diagnosing no-hot-water issues on gas and electric units, from pilot light failures to heating element replacement.", "readTime": "7 min", "icon": "🔥" },
+  { "id": "d4", "title": "Slow or Clogged Drains", "category": "Plumbing", "tags": ["drain", "clog", "p-trap"], "description": "Identify whether it's a P-trap, branch line, or main sewer issue — and the safest DIY approaches.", "readTime": "4 min", "icon": "🚿" },
+  { "id": "d5", "title": "Roof Leak Detection", "category": "Exterior", "tags": ["roof", "leak", "flashing"], "description": "How to safely inspect your roof from outside and inside, trace a leak to its source, and prevent mold damage.", "readTime": "8 min", "icon": "🏠" },
+  { "id": "d6", "title": "Noisy Furnace or Blower", "category": "HVAC", "tags": ["furnace", "blower", "noise"], "description": "Rattling, banging, squealing — decode what each sound means and which ones require immediate attention.", "readTime": "5 min", "icon": "🔊" },
+  { "id": "d7", "title": "Low Water Pressure", "category": "Plumbing", "tags": ["pressure", "PRV", "aerator"], "description": "Check aerators, shut-off valves, pressure regulator, and whole-house flow before calling a plumber.", "readTime": "5 min", "icon": "💧" }
+]

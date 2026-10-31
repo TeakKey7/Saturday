@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+.figma-custom-code-fragment {
+  display: contents;
+}
+
+.figma-bypass-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2147483647;
+  transform: translateY(-150%);
+  border-radius: 6px;
+  background: #111827;
+  color: #fff;
+  padding: 8px 12px;
+  font: 600 14px/1.2 system-ui, sans-serif;
+  text-decoration: none;
+}
+
+.figma-bypass-link:focus {
+  transform: translateY(0);
+}
+@theme {
+  --font-sans: 'Nunito', sans-serif;
+
+  --color-background: #F5F2EE;
+  --color-foreground: #2C2825;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #2C2825;
+  --color-primary: #8B7FC7;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #7E9478;
+  --color-secondary-foreground: #FFFFFF;
+  --color-muted: #EEE9E3;
+  --color-muted-foreground: #7A7168;
+  --color-accent: #C4BFEA;
+  --color-accent-foreground: #2C2825;
+  --color-border: #E8E4DE;
+  --color-lavender-light: #F0EDF9;
+  --color-sage-light: #EBF0E9;
+  --color-amber-warm: #E8A84C;
+  --color-red-soft: #D97B6C;
+  --color-sage-text: #4A6B44;
+  --color-lavender-text: #5A518A;
+  --color-amber-text: #9A6B1A;
+  --color-red-text: #9A3A2A;
+  --color-amber-light: #FEF3E2;
+  --color-red-light: #FDECEA;
+  --color-lavender-badge: #EEF0F9;
+  --color-scrollbar: #D4CFCA;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-pill: 20px;
+}
+
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background-color: #F5F2EE;
+  color: #2C2825;
+  margin: 0;
+}
+
+/* Hide scrollbars by default, show on hover */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+*:hover::-webkit-scrollbar-thumb {
+  background: #D4CFCA;
+}

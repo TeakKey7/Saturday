@@ -1,0 +1,138 @@
+.diagnostics {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.search {
+  min-width: 12rem;
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  outline: none;
+  background: var(--color-card);
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.search:focus {
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.filters,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter,
+.tag,
+.category {
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+}
+
+.filter {
+  padding: 0.25rem 0.75rem;
+  border: 0;
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  font-weight: 600;
+}
+
+.activeFilter {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  gap: 1rem;
+}
+
+.article {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  transition: transform 150ms, box-shadow 150ms;
+}
+
+.article:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+}
+
+.articleHeader,
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.articleHeader {
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.category {
+  padding: 0.125rem 0.625rem;
+  background: var(--color-lavender-light);
+  color: var(--color-lavender-text);
+  font-weight: 700;
+}
+
+.title,
+.description {
+  margin: 0;
+}
+
+.title {
+  color: var(--color-foreground);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.description {
+  margin: 0.5rem 0 0.75rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.footer {
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tag {
+  padding: 0.125rem 0.5rem;
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+}
+
+.readTime {
+  flex-shrink: 0;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

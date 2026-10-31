@@ -1,0 +1,6 @@
+[
+  { "icon": "❄️", "label": "AC Not Cooling?", "sub": "Diagnostics guide" },
+  { "icon": "⚡", "label": "Breaker Tripped?", "sub": "Step-by-step fix" },
+  { "icon": "💧", "label": "Low Water Pressure", "sub": "Troubleshooting" },
+  { "icon": "🏠", "label": "Roof Leak Detection", "sub": "Inspection guide" }
+]

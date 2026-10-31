@@ -1,0 +1,56 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-card);
+}
+
+.title {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.date,
+.address {
+  margin: 0.125rem 0 0;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+
+.household {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatars > * + * {
+  margin-left: -0.375rem;
+}
+
+.householdDetails {
+  text-align: right;
+}
+
+.householdName {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.switchHome {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: var(--color-primary);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
