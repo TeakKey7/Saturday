@@ -63,7 +63,11 @@ export default function App({
           )}
           {section === 'inventory' && <Inventory assets={assets} homeId={home.id} />}
           {section === 'reminders' && (
-            <Reminders tasks={tasks} onToggleTask={toggleTask} />
+            <Reminders 
+              homeId={home.id} 
+              assets={assets} /* <-- Added assets prop here */
+              reminders={tasks}
+            />
           )}
           {section === 'diagnostics' && (
             <Diagnostics articles={diagnosticsArticles} />

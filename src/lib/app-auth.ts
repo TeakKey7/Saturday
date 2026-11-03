@@ -6,11 +6,12 @@ import config from '@payload-config'
 import type { User } from '@/payload-types'
 
 const SESSION_COOKIE = 'app-session'
-const isFigmaPreview = process.env.FIGMA === '1'
 const sessionCookieOptions = {
   httpOnly: true,
-  sameSite: isFigmaPreview ? 'none' : 'lax',
-  secure: isFigmaPreview || process.env.NODE_ENV === 'production',
+  sameSite: 'none',
+  secure: true,
+  partitioned: true,
+  priority: 'high',
   maxAge: 8 * 60 * 60,
   path: '/',
 } as const

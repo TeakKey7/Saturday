@@ -78,7 +78,9 @@ export function Dashboard({
                 />
                 <div className={styles.taskContent}>
                   <p className={styles.taskTitle}>{task.title}</p>
-                  <p className={styles.meta}>{task.dueDate} · {task.category}</p>
+                  <p className={styles.meta}>
+                    {new Date(task.dueDate).toLocaleDateString('en-US', { timeZone: 'UTC' })} · {task.category}
+                  </p>
                 </div>
                 <div className={styles.taskPeople}>
                   <PriorityDot priority={task.priority} />
@@ -90,7 +92,7 @@ export function Dashboard({
         </article>
 
         <article className={styles.card}>
-          <h2 className={styles.cardTitle}>Quick Resources</h2>
+          <h2 className={styles.cardTitle}>Quick Resources (not implemented)</h2>
           <div className={styles.resourceList}>
             {quickResources.map(resource => (
               <div key={resource.label} className={styles.resource}>

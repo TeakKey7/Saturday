@@ -1,22 +1,40 @@
-import type { Access, CollectionConfig } from 'payload'
+import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
 
-const ownProfile: Access = ({ req }) => {
-  if (req.user?.collection !== 'users') return false
-  return { id: { equals: req.user.id } }
+const createBlankHomeOnSignup: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
+  if (operation !== 'create') return doc
+
+  await req.payload.create({
+    collection: 'homes',
+    data: {
+      name: 'Blank Home (Please Edit)',
+      address: 'Address to be updated',
+      members: [doc.id],
+    },
+    overrideAccess: true,
+  })
+
+  return doc
 }
 
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
-    admin: () => false,
+    admin: ({ req }) => req.user?.collection === 'admins',
     create: () => true,
-    delete: () => false,
-    read: ownProfile,
-    update: ownProfile,
+    delete: ({ req }) => req.user?.collection === 'admins',
+    read: () => true,
+    update: ({ req }) => {
+      if (req.user?.collection === 'admins') return true
+      if (req.user?.collection !== 'users') return false
+      return { id: { equals: req.user.id } }
+    },
   },
   admin: {
-    hidden: true,
+    group: 'Accounts',
     useAsTitle: 'name',
+  },
+  hooks: {
+    afterChange: [createBlankHomeOnSignup],
   },
   auth: {
     loginWithUsername: {

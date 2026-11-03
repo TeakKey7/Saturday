@@ -1,1 +1,11 @@
-{}
+{
+  "title": "Saturday",
+  "description": "Simplify home management with reminders for maintenance tasks, a resource database for troubleshooting, and tutorials for first-time homeowners.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

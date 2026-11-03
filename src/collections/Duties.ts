@@ -20,44 +20,50 @@ const validateHomeMembership: CollectionBeforeValidateHook = async ({ data, req 
 export const Duties: CollectionConfig = {
   slug: 'duties',
   access: {
-    create: ({ req }) =>
-      req.user?.collection === 'admins' || req.user?.collection === 'users',
-    delete: dutyMembership,
-    read: dutyMembership,
-    update: dutyMembership,
-  },
-  admin: {
-    group: 'Home',
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'home', 'dueDate', 'assignee', 'done'],
-  },
-  hooks: {
-    beforeValidate: [validateHomeMembership],
+    create: () => true,
+    read: ({ req: { user } }) => true, // Optionally restrict to user.id === doc.user
+    update: () => true,
+    delete: () => true,
   },
   fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'asset',
+      type: 'relationship',
+      relationTo: 'assets',
+      required: true,
+      admin: {
+        description: 'The asset this reminder relates to',
+      }
+    },
     {
       name: 'home',
       type: 'relationship',
       relationTo: 'homes',
       required: true,
-      index: true,
     },
-    { name: 'title', type: 'text', required: true, maxLength: 160 },
-    { name: 'category', type: 'text', required: true, maxLength: 80 },
-    { name: 'dueDate', type: 'text', required: true, maxLength: 80 },
+    {
+      name: 'user',
+      type: 'relationship',
+      relationTo: 'users',
+      required: true,
+    },
+    {
+      name: 'dueDate',
+      type: 'date',
+      required: true,
+    },
     {
       name: 'frequency',
       type: 'select',
-      required: true,
-      options: ['Monthly', 'Quarterly', 'Biannual', 'Annual'],
-    },
-    { name: 'assignee', type: 'text', required: true, maxLength: 100 },
-    { name: 'done', type: 'checkbox', defaultValue: false },
-    {
-      name: 'priority',
-      type: 'select',
-      required: true,
-      options: ['low', 'medium', 'high'],
-    },
+      options: ['daily', 'weekly', 'monthly', 'yearly'],
+      admin: {
+        description: 'Automatically setup recurring reminders',
+      }
+    }
   ],
 }

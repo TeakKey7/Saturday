@@ -423,14 +423,18 @@ export interface Asset {
  */
 export interface Duty {
   id: string;
-  home: string | Home;
   title: string;
-  category: string;
+  /**
+   * The asset this reminder relates to
+   */
+  asset: string | Asset;
+  home: string | Home;
+  user: string | User;
   dueDate: string;
-  frequency: 'Monthly' | 'Quarterly' | 'Biannual' | 'Annual';
-  assignee: string;
-  done?: boolean | null;
-  priority: 'low' | 'medium' | 'high';
+  /**
+   * Automatically setup recurring reminders
+   */
+  frequency?: ('daily' | 'weekly' | 'monthly' | 'yearly') | null;
   createdBy?:
     | ({
         relationTo: 'admins';
@@ -729,14 +733,12 @@ export interface AssetsSelect<T extends boolean = true> {
  * via the `definition` "duties_select".
  */
 export interface DutiesSelect<T extends boolean = true> {
-  home?: T;
   title?: T;
-  category?: T;
+  asset?: T;
+  home?: T;
+  user?: T;
   dueDate?: T;
   frequency?: T;
-  assignee?: T;
-  done?: T;
-  priority?: T;
   createdBy?: T;
   updatedBy?: T;
   updatedAt?: T;
@@ -825,7 +827,7 @@ export interface CollectionsWidget {
 export interface CollectionQueryWidget {
   data?: {
     title?: string | null;
-    relatedCollection: 'admins' | 'media' | 'folders' | 'tags' | 'homes' | 'assets' | 'duties';
+    relatedCollection: 'admins' | 'media' | 'folders' | 'tags' | 'users' | 'homes' | 'assets' | 'duties';
     where?:
       | {
           [k: string]: unknown;
@@ -847,7 +849,7 @@ export interface CollectionQueryWidget {
  */
 export interface ActivityWidget {
   data?: {
-    excludedCollections?: ('admins' | 'media' | 'folders' | 'tags' | 'homes' | 'assets' | 'duties')[] | null;
+    excludedCollections?: ('admins' | 'media' | 'folders' | 'tags' | 'users' | 'homes' | 'assets' | 'duties')[] | null;
   };
   width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { logoutAction } from '@/features/auth/actions'
 import type { HomeSummary } from '@/types/domain'
+import { CreateHomeButton } from './CreateHomeButton'
 import styles from './HomeSelector.module.css'
 
 export function HomeSelector({
@@ -30,24 +31,33 @@ export function HomeSelector({
         </p>
 
         {homes.length ? (
-          <div className={styles.grid}>
-            {homes.map((home, index) => (
-              <Link className={styles.home} href={`/homes/${home.id}`} key={home.id}>
-                <span className={index % 2 ? styles.sageIcon : styles.lavenderIcon}>
-                  {index % 2 ? '⌂' : '⌂'}
-                </span>
-                <div>
-                  <h2>{home.name}</h2>
-                  <p>{home.address}</p>
-                  <span className={styles.open}>Open dashboard →</span>
-                </div>
-              </Link>
-            ))}
+          <div className="flex flex-col items-start gap-8">
+            <div className={styles.grid}>
+              {homes.map((home, index) => (
+                <Link className={styles.home} href={`/homes/${home.id}`} key={home.id}>
+                  <span className={index % 2 ? styles.sageIcon : styles.lavenderIcon}>
+                    {index % 2 ? '⌂' : '⌂'}
+                  </span>
+                  <div>
+                    <h2>{home.name}</h2>
+                    <p>{home.address}</p>
+                    <span className={styles.open}>Open dashboard →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            
+            {/* Always allow creating a new home */}
+            <div className="mt-4 pt-8 border-t w-full">
+              <h3 className="text-lg font-bold mb-2">Manage Multiple Properties</h3>
+              <CreateHomeButton />
+            </div>
           </div>
         ) : (
           <div className={styles.empty}>
             <h2>No homes yet</h2>
-            <p>Ask your household administrator to add you to a home.</p>
+            <p>Create a blank home now, then update its name and address.</p>
+            <CreateHomeButton />
           </div>
         )}
       </section>

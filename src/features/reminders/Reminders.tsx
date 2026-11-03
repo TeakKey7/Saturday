@@ -1,77 +1,94 @@
+'use client'
+
 import { useState } from 'react'
-import { Avatar } from '@/components/common/Avatar'
-import { PriorityDot } from '@/components/common/Badges'
-import frequencies from '@/data/static/reminder-frequencies.json'
-import type { Task } from '@/types/domain'
+import type { Asset } from '@/types/domain'
+import { ReminderFormModal } from './ReminderFormModal'
 import styles from './Reminders.module.css'
 
-export function Reminders({
-  tasks,
-  onToggleTask,
-}: {
-  tasks: Task[]
-  onToggleTask: (id: string) => void
-}) {
-  const [filter, setFilter] = useState<'all' | 'upcoming' | 'done'>('all')
-  const filtered = tasks.filter(task => {
-    if (filter === 'upcoming') return !task.done
-    if (filter === 'done') return task.done
-    return true
-  })
+export function Reminders({ reminders = [], assets = [], homeId }: { reminders?: any[]; assets?: Asset[]; homeId: string }) {
+  const [selected, setSelected] = useState<any | null>(null)
+  const [formReminder, setFormReminder] = useState<any | null | undefined>(undefined)
 
   return (
-    <section className={styles.reminders}>
-      <div className={styles.filters}>
-        {(['all', 'upcoming', 'done'] as const).map(option => (
-          <button
-            key={option}
-            onClick={() => setFilter(option)}
-            className={`${styles.filter} ${filter === option ? styles.activeFilter : ''}`}
-          >
-            {option}
-          </button>
-        ))}
+    <section>
+      <div className={styles.toolbar}>
+        <div>
+          <p className={styles.summary}>{reminders.length} scheduled reminders</p>
+        </div>
+        <button className={styles.addButton} onClick={() => setFormReminder(null)}>
+          <span aria-hidden="true">+</span>
+          Add reminder
+        </button>
       </div>
 
-      <div className={styles.board}>
-        {frequencies.map(frequency => {
-          const columnTasks = filtered.filter(task => task.frequency === frequency)
-          if (columnTasks.length === 0) return null
+      <div className={styles.inventory}>
+        <div className={styles.catalog}>
+          <div className={styles.grid}>
+            {reminders.map(reminder => {
+              const assetTitle = typeof reminder.asset === 'object' ? reminder.asset?.name : 'Unknown Asset'
+              return (
+                <button
+                  key={reminder.id}
+                  onClick={() => setSelected(reminder === selected ? null : reminder)}
+                  className={`${styles.asset} ${selected?.id === reminder.id ? styles.selected : ''}`}
+                >
+                  <div className={styles.assetHeader}>
+                    <p className={styles.assetName}>{reminder.title}</p>
+                  </div>
+                  <p className={styles.meta}>Asset: {assetTitle}</p>
+                  <p className={styles.service}>
+                    Due: <strong>{new Date(reminder.dueDate).toLocaleDateString()}</strong> · {reminder.frequency}
+                  </p>
+                </button>
+              )
+            })}
+          </div>
+        </div>
 
-          return (
-            <section key={frequency}>
-              <h2 className={styles.frequency}>{frequency}</h2>
-              <div className={styles.taskList}>
-                {columnTasks.map(task => (
-                  <article className={`${styles.task} ${task.done ? styles.done : ''}`} key={task.id}>
-                    <div className={styles.taskHeader}>
-                      <button
-                        aria-label={`${task.done ? 'Reopen' : 'Complete'} ${task.title}`}
-                        onClick={() => onToggleTask(task.id)}
-                        className={`${styles.checkbox} ${task.done ? styles.checked : ''}`}
-                      >
-                        {task.done && <span>✓</span>}
-                      </button>
-                      <p className={styles.taskTitle}>{task.title}</p>
-                    </div>
-                    <div className={styles.taskMeta}>
-                      <div className={styles.category}>
-                        <PriorityDot priority={task.priority} />
-                        <span>{task.category}</span>
-                      </div>
-                      <div className={styles.assignee}>
-                        <Avatar name={task.assignee} size={20} />
-                        <span>{task.assignee}</span>
-                      </div>
-                    </div>
-                    <p className={styles.dueDate}>Due {task.dueDate}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-          )
-        })}
+        {selected && (
+          <aside className={styles.details}>
+            <div className={styles.detailsHeader}>
+              <h2 className={styles.detailsTitle}>Details</h2>
+              <button
+                aria-label="Close details"
+                onClick={() => setSelected(null)}
+                className={styles.close}
+              >
+                ×
+              </button>
+            </div>
+            
+            <h3 className={styles.selectedName}>{selected.title}</h3>
+            <p className={styles.selectedModel}>Asset: {typeof selected.asset === 'object' ? selected.asset.name : 'Unknown'}</p>
+            
+            <button className={styles.editButton} onClick={() => setFormReminder(selected)}>
+              Edit reminder
+            </button>
+
+            <dl className={styles.definitionList}>
+              {[
+                { label: 'Due Date', value: new Date(selected.dueDate).toLocaleDateString() },
+                { label: 'Frequency', value: selected.frequency },
+              ].map(row => (
+                <div key={row.label} className={styles.definition}>
+                  <dt>{row.label}</dt>
+                  <dd className="capitalize">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        )}
       </div>
+
+      {formReminder !== undefined && (
+        <ReminderFormModal
+          reminder={formReminder}
+          homeId={homeId}
+          assets={assets}
+          onClose={() => setFormReminder(undefined)}
+          onSaved={() => setSelected(null)}
+        />
+      )}
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import type { Access, CollectionConfig } from 'payload'
+import type { Access, CollectionBeforeValidateHook, CollectionConfig } from 'payload'
 
 const homeMembership: Access = ({ req }) => {
   if (req.user?.collection === 'admins') return true
@@ -6,10 +6,19 @@ const homeMembership: Access = ({ req }) => {
   return { members: { contains: req.user.id } }
 }
 
+const assignCreatingUser: CollectionBeforeValidateHook = ({ data, operation, req }) => {
+  if (operation !== 'create' || req.user?.collection !== 'users') return data
+  return {
+    ...data,
+    members: [req.user.id],
+  }
+}
+
 export const Homes: CollectionConfig = {
   slug: 'homes',
   access: {
-    create: ({ req }) => req.user?.collection === 'admins',
+    create: ({ req }) =>
+      req.user?.collection === 'admins' || req.user?.collection === 'users',
     delete: ({ req }) => req.user?.collection === 'admins',
     read: homeMembership,
     update: homeMembership,
@@ -18,6 +27,9 @@ export const Homes: CollectionConfig = {
     group: 'Home',
     useAsTitle: 'name',
     defaultColumns: ['name', 'address'],
+  },
+  hooks: {
+    beforeValidate: [assignCreatingUser],
   },
   fields: [
     {

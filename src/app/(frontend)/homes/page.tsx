@@ -29,5 +29,8 @@ export default async function HomesPage() {
     name: home.name,
   }))
 
+  // REMOVED: if (homes.length === 1) redirect(`/homes/${homes[0].id}`)
+  // Now users with exactly 1 home can successfully reach the HomeSelector to create a 2nd home.
+
   return <HomeSelector homes={homes} userName={user.name} />
 }
